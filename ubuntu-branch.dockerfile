@@ -1,4 +1,4 @@
-ARG packet_version=ubuntu:latest
+ARG packet_version=ubuntu:22.04
 FROM ${packet_version}
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -7,14 +7,13 @@ ARG staticjinja_plus_branch=main
 
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
-    add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
-    apt-get install -y python3.8 python3.8-venv python3.8-dev python3.8-distutils curl unzip && \
+    apt-get install -y python3.8 python3.8-venv python3.8-dev python3.8-distutils && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN curl -sL https://github.com/MrDave/StaticJinjaPlus/archive/refs/heads/${staticjinja_plus_branch}.zip -o staticjinja.zip && \
-    unzip staticjinja.zip && \
-    rm staticjinja.zip
+ADD https://github.com/MrDave/StaticJinjaPlus/archive/refs/heads/${staticjinja_plus_branch}.tar.gz staticjinja.tar.gz
+RUN tar -xzf staticjinja.tar.gz && \
+    rm staticjinja.tar.gz
 
 WORKDIR /StaticJinjaPlus-${staticjinja_plus_branch}
 

@@ -16,29 +16,29 @@
 * staticjinja_plus_branch - название ветки репозитория
 
 
-Dockerfile для использования версии из веток репозитория:
+Dockerfile для использования версии из веток репозитория в директории branch:
 
-* python-slim-branch.dockerfile - для использования python-slim в качестве образа
+* python-slim.dockerfile - для использования python-slim в качестве образа
 
 ```
-docker build -f python-slim-branch.dockerfile -t ${tag} --build-arg packet_version=${python-slim-version} --build-arg=${staticjinja_plus_branch}  .
-```
-
-* ubuntu-branch.dockerfile - для использования ubuntu в качестве образа
-```
-docker build -f ubuntu-branch.dockerfile -t ${tag} --build-arg packet_version=${ubuntu-version} --build-arg=${staticjinja_plus_branch} .
+docker build -f python-slim.dockerfile -t ${tag} --build-arg packet_version=${python-slim-version} --build-arg=${staticjinja_plus_branch}  .
 ```
 
-Dockerfile для использования версии из тэгов репозитория:
-
-* python-slim-tags.dockerfile - для использования python-slim в качестве образа
+* ubuntu.dockerfile - для использования ubuntu в качестве образа
 ```
-docker build -f python-slim-tags.dockerfile -t ${tag} --build-arg packet_version=${python-slim-version} --build-arg=${staticjinja_plus_version}  .
+docker build -f ubuntu.dockerfile -t ${tag} --build-arg packet_version=${ubuntu-version} --build-arg=${staticjinja_plus_branch} .
 ```
 
-* ubuntu-branch.dockerfile - для использования ubuntu в качестве образа
+Dockerfile для использования версии из тэгов репозитория в директории tags:
+
+* python-slim.dockerfile - для использования python-slim в качестве образа
 ```
-docker build -f ubuntu-tags.dockerfile -t ${tag} --build-arg packet_version=${ubuntu-version} --build-arg=${staticjinja_plus_version} .
+docker build -f python-slim.dockerfile -t ${tag} --build-arg packet_version=${python-slim-version} --build-arg=${staticjinja_plus_version}  .
+```
+
+* ubuntu.dockerfile - для использования ubuntu в качестве образа
+```
+docker build -f ubuntu.dockerfile -t ${tag} --build-arg packet_version=${ubuntu-version} --build-arg=${staticjinja_plus_version} .
 ```
 
 ## Как запустить контейнеры

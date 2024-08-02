@@ -9,11 +9,11 @@ RUN apt-get update && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
-ADD https://github.com/MrDave/StaticJinjaPlus/archive/refs/heads/main.tar.gz staticjinja.tar.gz
+ADD https://github.com/MrDave/StaticJinjaPlus/archive/refs/tags/0.1.1.tar.gz staticjinja.tar.gz
 RUN tar -xzf staticjinja.tar.gz && \
     rm staticjinja.tar.gz
 
-WORKDIR /StaticJinjaPlus-main
+WORKDIR /StaticJinjaPlus-0.1.1
 
 RUN python -m pip install --no-cache-dir -r requirements.txt
 

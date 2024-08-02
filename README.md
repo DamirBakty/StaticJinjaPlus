@@ -15,22 +15,22 @@
 * image - название контейнера в компьютере
 * tag - тэг контейнера локального компьютера
 * python-slim-version - версия образа python-slim из dockerhub
-* ubuntu-version - версия образа python-slim из dockerhub
+* ubuntu-version - версия образа ubuntu из dockerhub
 * staticjinja_plus_version - версия тэга из репозитория
 * staticjinja_plus_branch - название ветки репозитория
 
-Dockerfile для использования версии из веток репозитория в директории branch:
+Dockerfile для использования версии из веток репозитория в директории develop:
 
-* python-slim.dockerfile - для использования python-slim в качестве образа
-
-```
-docker build -f python-slim.dockerfile -t ${image}:${tag} --build-arg packet_version=${python-slim-version} --build-arg=${staticjinja_plus_branch}  .
-```
-
-* ubuntu.dockerfile - для использования ubuntu в качестве образа
+* директория python - для использования python-slim в качестве образа
 
 ```
-docker build -f ubuntu.dockerfile -t ${image}:${tag} --build-arg packet_version=${ubuntu-version} --build-arg=${staticjinja_plus_branch} .
+docker build -t ${image}:${tag} --build-arg packet_version=${python-slim-version} --build-arg=${staticjinja_plus_branch}  .
+```
+
+* директория ubuntu - для использования ubuntu в качестве образа
+
+```
+docker build -t ${image}:${tag} --build-arg packet_version=${ubuntu-version} --build-arg=${staticjinja_plus_branch} .
 ```
 
 ### В момент выхода порта есть слудющие тэги StaticJinjaPlus:
@@ -40,16 +40,16 @@ docker build -f ubuntu.dockerfile -t ${image}:${tag} --build-arg packet_version=
 
 Dockerfile для использования версии из тэгов репозитория в директории tags:
 
-* python-slim.dockerfile - для использования python-slim в качестве образа
+* директория python - для использования python-slim в качестве образа
 
 ```
-docker build -f python-slim.dockerfile -t ${image}:${tag} --build-arg packet_version=${python-slim-version} --build-arg=${staticjinja_plus_version}  .
+docker build -t ${image}:${tag} --build-arg packet_version=${python-slim-version} --build-arg=${staticjinja_plus_version}  .
 ```
 
-* ubuntu.dockerfile - для использования ubuntu в качестве образа
+* директория ubuntu - для использования ubuntu в качестве образа
 
 ```
-docker build -f ubuntu.dockerfile -t ${image}:${tag} --build-arg packet_version=${ubuntu-version} --build-arg=${staticjinja_plus_version} .
+docker build -t ${image}:${tag} --build-arg packet_version=${ubuntu-version} --build-arg=${staticjinja_plus_version} .
 ```
 
 ## Как запустить контейнеры

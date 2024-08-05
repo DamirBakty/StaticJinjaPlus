@@ -38,7 +38,7 @@ docker build -t ${image}:${tag} --build-arg packet_version=${ubuntu-version} --b
 - [0.1.0](https://github.com/MrDave/StaticJinjaPlus/releases/tag/0.1.0)
 - [0.1.1](https://github.com/MrDave/StaticJinjaPlus/releases/tag/0.1.1)
 
-Dockerfile для использования версии из тэгов репозитория в директории tags:
+Dockerfile для использования версии из тэгов репозитория в директории 0.1:
 
 * директория python - для использования python-slim в качестве образа
 

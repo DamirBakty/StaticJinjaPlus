@@ -15,22 +15,24 @@
 * image - название контейнера в компьютере
 * tag - тэг контейнера локального компьютера
 * python-slim-version - версия образа python-slim из dockerhub
-* ubuntu-version - версия образа ubuntu из dockerhub
+* version - версия образа ubuntu из dockerhub
 * staticjinja_plus_version - версия тэга из репозитория
 * staticjinja_plus_branch - название ветки репозитория
+* git_username - имя пользователя github
+* git_email - почта пользователя github
 
-Dockerfile для использования версии из веток репозитория в директории develop:
+Dockerfile для использования свежей версии в директории develop:
 
 * директория python - для использования python-slim в качестве образа
 
 ```
-docker build -t ${image}:${tag} --build-arg packet_version=${python-slim-version} --build-arg=${staticjinja_plus_branch}  .
+docker build -t ${image}:${tag} --build-arg packet_version=${python-slim-version} --build-arg git_username=${git_username} --build-arg git_email=${git_email} .
 ```
 
 * директория ubuntu - для использования ubuntu в качестве образа
 
 ```
-docker build -t ${image}:${tag} --build-arg packet_version=${ubuntu-version} --build-arg=${staticjinja_plus_branch} .
+docker build -t ${image}:${tag} --build-arg version=${version} --build-arg git_username=${git_username} --build-arg git_email=${git_email} .
 ```
 
 ### В момент выхода порта есть слудющие тэги StaticJinjaPlus:
@@ -43,13 +45,13 @@ Dockerfile для использования версии из тэгов реп
 * директория python - для использования python-slim в качестве образа
 
 ```
-docker build -t ${image}:${tag} --build-arg packet_version=${python-slim-version} --build-arg=${staticjinja_plus_version}  .
+docker build -t ${image}:${tag} --build-arg packet_version=${python-slim-version} --build-arg staticjinja_plus_version=${staticjinja_plus_version}  --build-arg git_username=${git_username} --build-arg git_email=${git_email} .
 ```
 
 * директория ubuntu - для использования ubuntu в качестве образа
 
 ```
-docker build -t ${image}:${tag} --build-arg packet_version=${ubuntu-version} --build-arg=${staticjinja_plus_version} .
+docker build -t ${image}:${tag} --build-arg version=${version} --build-arg staticjinja_plus_version=${staticjinja_plus_version} --build-arg git_username=${git_username} --build-arg git_email=${git_email} .
 ```
 
 ## Как запустить контейнеры

@@ -1,23 +1,30 @@
-ARG packet_version=ubuntu:22.04
-FROM ${packet_version}
+ARG version=22.04
+FROM ubuntu:${version}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 
-RUN apt-get update && \
-    apt-get install -y python3.8 python3.8-venv python3.8-dev python3.8-distutils && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y \
+    && apt-get install -y python3 python3-venv curl
 
 ARG staticjinja_plus_version=0.1.0
 
-ADD https://github.com/MrDave/StaticJinjaPlus/archive/refs/tags/${staticjinja_plus_version}.tar.gz staticjinja.tar.gz
+RUN sum=$(curl -sL https://github.com/MrDave/StaticJinjaPlus/archive/refs/tags/${staticjinja_plus_version}.tar.gz | sha256sum | awk '{print $1}')
+
+ADD --checksum=sha256:${sum} https://github.com/MrDave/StaticJinjaPlus/archive/refs/tags/${staticjinja_plus_version}.tar.gz staticjinja.tar.gz
 RUN tar -xzf staticjinja.tar.gz && \
     rm staticjinja.tar.gz
 
+
+ARG git_username="john"
+ARG git_email="email@example.com"
+
+RUN git config --global user.name ${git_username} \
+    && git config --global user.email ${git_email}
+
 WORKDIR /StaticJinjaPlus-${staticjinja_plus_version}
 
-RUN python3.8 -m venv .venv && \
+RUN python3 -m venv .venv && \
     . .venv/bin/activate && \
     .venv/bin/pip install --no-cache-dir -r requirements.txt
 

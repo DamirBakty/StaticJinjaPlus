@@ -3,18 +3,17 @@ FROM ${packet_version}
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ARG staticjinja_plus_branch=main
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
-ADD https://github.com/MrDave/StaticJinjaPlus/archive/refs/heads/${staticjinja_plus_branch}.tar.gz staticjinja.tar.gz
-RUN tar -xzf staticjinja.tar.gz && \
-    rm staticjinja.tar.gz
+ADD https://github.com/MrDave/StaticJinjaPlus.git /StaticJinjaPlus
 
-WORKDIR /StaticJinjaPlus-${staticjinja_plus_branch}
+ARG git_username="john"
+ARG git_email="email@example.com"
+
+RUN git config --global user.name ${git_username} \
+    && git config --global user.email ${git_email} \
+
+WORKDIR /StaticJinjaPlus
 
 RUN python -m pip install --no-cache-dir -r requirements.txt
 

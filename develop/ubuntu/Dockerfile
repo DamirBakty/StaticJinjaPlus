@@ -1,23 +1,25 @@
-ARG packet_version=ubuntu:22.04
-FROM ${packet_version}
+ARG version=22.04
+FROM ubuntu:${version}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 ARG staticjinja_plus_branch=main
 
-RUN apt-get update && \
-    apt-get install -y python3.8 python3.8-venv python3.8-dev python3.8-distutils && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y \
+    && apt-get install -y python3 python3-venv
 
 
-ADD https://github.com/MrDave/StaticJinjaPlus/archive/refs/heads/${staticjinja_plus_branch}.tar.gz staticjinja.tar.gz
-RUN tar -xzf staticjinja.tar.gz && \
-    rm staticjinja.tar.gz
+ADD https://github.com/MrDave/StaticJinjaPlus.git /StaticJinjaPlus
 
-WORKDIR /StaticJinjaPlus-${staticjinja_plus_branch}
+ARG git_username="john"
+ARG git_email="email@example.com"
 
-RUN python3.8 -m venv .venv && \
+RUN git config --global user.name ${git_username} \
+    && git config --global user.email ${git_email} \
+
+WORKDIR /StaticJinjaPlus
+
+RUN python3 -m venv .venv && \
     . .venv/bin/activate && \
     .venv/bin/pip install --no-cache-dir -r requirements.txt
 

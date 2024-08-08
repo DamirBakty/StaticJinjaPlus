@@ -7,11 +7,6 @@ ENV PYTHONUNBUFFERED=1
 
 ADD https://github.com/MrDave/StaticJinjaPlus.git /StaticJinjaPlus
 
-ARG git_username="john"
-ARG git_email="email@example.com"
-
-RUN git config --global user.name ${git_username} \
-    && git config --global user.email ${git_email} \
 
 WORKDIR /StaticJinjaPlus
 

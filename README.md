@@ -18,21 +18,20 @@
 * version - версия образа ubuntu из dockerhub
 * staticjinja_plus_version - версия тэга из репозитория
 * staticjinja_plus_branch - название ветки репозитория
-* git_username - имя пользователя github
-* git_email - почта пользователя github
+* hash_sum - хэш сумма версии пакета в github
 
 Dockerfile для использования свежей версии в директории develop:
 
 * директория python - для использования python-slim в качестве образа
 
 ```
-docker build -t ${image}:${tag} --build-arg packet_version=${python-slim-version} --build-arg git_username=${git_username} --build-arg git_email=${git_email} .
+docker build -t ${image}:${tag} --build-arg packet_version=${python-slim-version} .
 ```
 
 * директория ubuntu - для использования ubuntu в качестве образа
 
 ```
-docker build -t ${image}:${tag} --build-arg version=${version} --build-arg git_username=${git_username} --build-arg git_email=${git_email} .
+docker build -t ${image}:${tag} --build-arg version=${version} .
 ```
 
 ### В момент выхода порта есть слудющие тэги StaticJinjaPlus:
@@ -42,16 +41,21 @@ docker build -t ${image}:${tag} --build-arg version=${version} --build-arg git_u
 
 Dockerfile для использования версии из тэгов репозитория в директории 0.1:
 
+* Высчитать хэш сумму, после надо сохранить как ${hash_sum}:
+```shell
+curl -sL https://github.com/MrDave/StaticJinjaPlus/archive/refs/tags/${staticjinja_plus_version}.tar.gz | sha256sum  | awk '{print $1}'
+```
+
 * директория python - для использования python-slim в качестве образа
 
 ```
-docker build -t ${image}:${tag} --build-arg packet_version=${python-slim-version} --build-arg staticjinja_plus_version=${staticjinja_plus_version}  --build-arg git_username=${git_username} --build-arg git_email=${git_email} .
+docker build -t ${image}:${tag} --build-arg packet_version=${python-slim-version} --build-arg staticjinja_plus_version=${staticjinja_plus_version} --build-arg hash_sum=${hash_sum} .
 ```
 
 * директория ubuntu - для использования ubuntu в качестве образа
 
 ```
-docker build -t ${image}:${tag} --build-arg version=${version} --build-arg staticjinja_plus_version=${staticjinja_plus_version} --build-arg git_username=${git_username} --build-arg git_email=${git_email} .
+docker build -t ${image}:${tag} --build-arg version=${version} --build-arg staticjinja_plus_version=${staticjinja_plus_version} --build-arg hash_sum=${hash_sum} .
 ```
 
 ## Как запустить контейнеры

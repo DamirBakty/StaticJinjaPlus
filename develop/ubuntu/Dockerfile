@@ -9,7 +9,9 @@ RUN apt-get update -y \
     && apt-get install -y python3 python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
-ADD https://github.com/MrDave/StaticJinjaPlus.git /StaticJinjaPlus
+ADD https://github.com/MrDave/StaticJinjaPlus/archive/refs/heads/${staticjinja_plus_branch}.tar.gz /StaticJinjaPlus.tar.gz
+
+RUN mkdir /StaticJinjaPlus && tar -xzf /StaticJinjaPlus.tar.gz -C /StaticJinjaPlus --strip-components=1
 
 WORKDIR /StaticJinjaPlus
 

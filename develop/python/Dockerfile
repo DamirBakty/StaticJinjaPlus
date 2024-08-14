@@ -7,9 +7,7 @@ ENV PYTHONUNBUFFERED=1
 ARG staticjinja_plus_branch=main
 
 
-ADD https://github.com/MrDave/StaticJinjaPlus/archive/refs/heads/${staticjinja_plus_branch}.tar.gz /StaticJinjaPlus.tar.gz
-
-RUN mkdir /StaticJinjaPlus && tar -xzf /StaticJinjaPlus.tar.gz -C /StaticJinjaPlus --strip-components=1
+ADD https://github.com/MrDave/StaticJinjaPlus.git /StaticJinjaPlus
 
 WORKDIR /StaticJinjaPlus
 
